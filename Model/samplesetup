@@ -1,0 +1,12 @@
+<?php
+    require_once("config.php"); //required to implement this for calling DB
+
+    class SeniorRegistration extends config{
+        
+
+
+    }
+
+
+
+?>
