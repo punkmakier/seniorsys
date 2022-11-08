@@ -30,7 +30,154 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="viewSrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="TitlePage">Basic Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      
+    
+
+
+      <div id="EmergencyContact"  class="d-none">
+        <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>First Name</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>Middle Name</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>Last Name</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="row">
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>Address</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>Cellphone Number</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-2">
+                            <label for="exampleInputEmail1" class="form-label"><b>Last Update</b></label>
+                            <input type="text" class="form-control" value="" readonly>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Next</button>
+            </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <script>
+
+
+    $(".viewSelectedSr").on('click',function(){
+            id_item = $(this).attr('id');
+
+            $.ajax({
+                type: "POST",
+                url: "../Controller/AdminFunction.php",
+                data: {id_per_item:id_item, action: "viewSrCitizenInfo"},
+                success:function(response){
+                    $(".modal-body").html(response);
+
+                    $(".toPartnerInfo").click(function(){
+
+                        $("#TitlePage").text("Partner Information");
+                        $("div#BasicInfo").css("display","none");
+                        $("div#PartnerInfo").css("display","block");
+
+                    })
+
+                    $(".backToBasicInfo").click(function(){
+                        $("#TitlePage").text("Basic Information");
+                        $("div#BasicInfo").css("display","block");
+                        $("div#PartnerInfo").css("display","none");
+                    })
+
+                    $(".toHealthIssue").click(function(){
+                        $("#TitlePage").text("Health Issue");
+                        $("div#HealthIssue").css("display","block");
+                        $("div#PartnerInfo").css("display","none");
+
+                    })
+
+                    $(".backToPartnerInfo").click(function(){
+                        $("#TitlePage").text("Partner Information");
+                        $("div#HealthIssue").css("display","none");
+                        $("div#PartnerInfo").css("display","block");
+                    })
+
+                    $(".toEmergency").click(function(){
+                        $("#TitlePage").text("Emergency Contact");
+                        $("div#HealthIssue").css("display","none");
+                        $("div#EmergencyContact").css("display","block");
+
+                    })
+
+                    $(".backToHealthIssue").click(function(){
+                        $("#TitlePage").text("Health Issue");
+                        $("div#EmergencyContact").css("display","none");
+                        $("div#HealthIssue").css("display","block");
+                    })
+
+                    
+                }
+            })
+
+            $("#viewSrModal").modal("show");
+
+        })
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
     $(".deleteThisSrCitizenAcct").on('click',function(){
         $tr = $(this).closest('tr');
 

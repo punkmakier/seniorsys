@@ -1,11 +1,19 @@
+
+<?php
+    require_once 'Model/SeniorAccount.php';
+    $snrAccountDetails = new SeniorAccount;
+
+?>
+
+
 <div id="announcement">
     <div class="container mt-5 text-center pe-lg-5 ps-lg-5 pb-lg-5">
         <h3>Announcement</h3>
-        <p class="mt-5  ps-lg-5 pe-lg-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolorem, perspiciatis ipsam soluta doloribus earum 
-            voluptate culpa nesciunt dolorum amet id voluptatem cum repudiandae dicta quia maiores similique pariatur minus.</p>
+        <h4 class="mt-4"><?php $snrAccountDetails->showLastAnnouncementTitle(); ?></h4>
+        <p class="mt-5  ps-lg-5 pe-lg-5"><?php $snrAccountDetails->showLastAnnouncementDescription(); ?></p>
 
-        <label class="mt-3">Date Posted: 2022-11-05 : 18:32:21<br>
-            <small>Posted By: Martinez | System Head</small>
+        <label class="mt-3">Date Posted: <?php $snrAccountDetails->showLastAnnouncementDateCreated(); ?><br>
+            <small>Posted By: <?php $snrAccountDetails->showLastAnnouncementPostedBy(); ?> | <?php $snrAccountDetails->showLastAnnouncementPostedByPosition(); ?></small>
     </label>
 
     </div>

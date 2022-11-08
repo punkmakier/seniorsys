@@ -3,6 +3,7 @@
     require_once '../Model/AddAdmin.php';
     require_once '../Model/AdminAccount.php';
     require_once '../Model/AddAnnouncement.php';
+    require_once '../Model/AccountRequested.php';
 
 
 
@@ -27,8 +28,19 @@
         postDataAnnouncementFunc();
     }
 
-    
+    else if(isset($_POST['deleteSelectedMes'])){
+        deleteSelectedMesFunc();
+    }
+    else if(isset($_POST['updateSelectedMesFunc'])){
+        updateSelectedMesFunc();
+    }
 
+    else if(isset($_POST['action']) && $_POST['action'] == "viewSrCitizenInfo"){
+        viewSrCitizenInfoFunc();
+    }
+
+    
+    
 
     function addAdminAccountFunc(){
         $lname = $_POST['lname'];
@@ -138,6 +150,145 @@
 
 
         
+
+    }
+
+    function deleteSelectedMesFunc(){
+        $id = $_POST['selectedIDmessageTodelete'];
+        $admin = new AdminAccount;
+        
+        if($admin->deleteMessage($id)){
+            echo "Success";
+        }else{
+            echo "Failed";
+        }
+
+    }
+
+    function updateSelectedMesFunc(){
+        $id = $_POST['selectedIDmessageToupdate'];
+        $admin = new AdminAccount;
+        
+        if($admin->updateMessage($id)){
+            echo "Success";
+        }else{
+            echo "Failed";
+        }
+
+    }
+
+
+    function deleteSrSelectedFunc(){
+        $id = $_POST['selectedUserSrCitizen'];
+
+        $admin = new AdminAccount;
+        if($admin->deleteSrAccountSelected($id)){
+            echo "Success";
+        }else{
+            echo "Failed";
+        }
+
+    }
+
+
+
+    function viewSrCitizenInfoFunc(){
+
+        $uid = $_POST['id_per_item'];
+
+        $acReq = new AccountRequested;
+
+        echo ' <div id="BasicInfo" class="BasicInfos">';
+        echo "
+       
+        <div class='row'>";
+            $acReq->showBirthCertBrgyClearFnameMnameLnameBday($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+            $acReq->showAddEmailCPStat($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+            $acReq->showDateRegPOBAgeGender($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+            $acReq->showEducAttainVoterCivCiti($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+            $acReq->showReliTelOccuMonthInc($uid);
+        echo "</div>  
+        
+        <div class='modal-footer'>
+                <button type='button' class='btn btn-primary toPartnerInfo'>Next</button>
+            </div>
+        
+        </div>
+        ";
+
+
+
+
+
+        // PARTNER INFO
+
+        echo "<div id='PartnerInfo' style='display:none;'> ";
+
+
+        echo "<div class='row'>";
+        $acReq->showPartnerFnameMnameLnameBday($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+        $acReq->showPartnerAgeLUPEducAttainOccuMonthlyInc($uid);
+        echo "</div>
+
+        <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary backToBasicInfo'>Back</button>
+                <button type='button' class='btn btn-primary toHealthIssue'>Next</button>
+            </div>
+        
+        </div>";
+
+
+        // Health Issue
+
+        echo "<div id='HealthIssue' style='display:none;'> ";
+
+        echo "<div class='row'>";
+        $acReq->showHealthIssueCMICLastUpdate($uid);
+        echo "</div>
+
+        <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary backToPartnerInfo'>Back</button>
+                <button type='button' class='btn btn-primary toEmergency'>Next</button>
+            </div>
+        
+        </div>";
+
+
+
+        // Emergency Contact INFO
+
+        echo "<div id='EmergencyContact' style='display:none;'> ";
+
+
+        echo "<div class='row'>";
+        $acReq->showEmergencyContactFnameMnameLname($uid);
+        echo "</div>  ";
+
+        echo "<div class='row'>";
+        $acReq->showEmergencyContactAddCPLUP($uid);
+        echo "</div>
+
+        <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary backToHealthIssue'>Back</button>
+            </div>
+        
+        </div>";
+
 
     }
 

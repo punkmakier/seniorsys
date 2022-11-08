@@ -91,7 +91,6 @@
                 url: "../Controller/AdminFunction.php",
                 data: data,
                 success: function(response){
-                    alert(response);
                     Swal.fire({
                     title: 'Success',
                     text: "Your account is updated!",

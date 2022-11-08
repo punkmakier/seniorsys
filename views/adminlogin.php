@@ -64,7 +64,6 @@
                     url: "../Controller/AdminFunction.php",
                     data: formData,
                     success: function(data){
-                        alert(data);
                         if(data == "Failed"){
                             Swal.fire(
                             'No Found!',

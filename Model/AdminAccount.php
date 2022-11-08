@@ -278,5 +278,32 @@
         }
 
 
+        public function deleteMessage($id){
+            $con = $this->openConnection();
+            $sqlQuery = "DELETE FROM `message` WHERE `id`='$id'";
+            $stmt = $con->prepare($sqlQuery);
+            if($stmt->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        public function updateMessage($id){
+            $con = $this->openConnection();
+            $sqlQuery = "UPDATE `message` SET `Status`='Read' WHERE `id`='$id'";
+            $stmt = $con->prepare($sqlQuery);
+            if($stmt->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+
+       
+
+
     }
 ?>
