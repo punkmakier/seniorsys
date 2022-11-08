@@ -8,7 +8,7 @@
 
         <div class="inside-homepage-content">
             <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h3>
-            <a href="">Register Now</a>
+            <a href="views/login.php">Register Now</a>
         </div>
     </div>
 </div>

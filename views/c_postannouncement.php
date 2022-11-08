@@ -3,9 +3,6 @@
 
     <div class="panel">
         
-<form action=""id="selectedAnnouncementForm">
-    <input type="hidden" id="selectedID" name="selectedAnnouncement">
-</form>
        <h5 class="mb-3">Announcement Posted List</h5>
        <button class="btn btn-custom-default mb-4" style="width: 20%" data-bs-toggle="modal" data-bs-target="#addAnnouncement">Add Announcement</button>
        <table class="table table-striped" id="myTable">
@@ -65,6 +62,7 @@
 
 <script>
     $("#postBTN").click(function(){
+        
         var data = $("#postAnnouncementForm").serialize()+"&postDataAnnouncement=postDataAnnouncement";
         $.ajax({
             type: "POST",
@@ -102,6 +100,51 @@
                 }
                 
             }
+        })
+    })
+
+    $(".deleteAnnouncement").click(function(){
+        id_item = $(this).attr("id");
+
+        Swal.fire({
+        title: 'Please Confirm!',
+        text: "Are you sure do you want to delete this item?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Okay'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: "../Controller/AdminFunction.php",
+                data: {id_per_item:id_item, action: "deletethisAnnouncement"},
+                success: function(response){
+                    if(response == "Success"){
+                        Swal.fire({
+                        title: 'Success',
+                        text: "Announcement deleted successfully!",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okay'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                        })
+                    }else{
+                        Swal.fire(
+                            'Failed',
+                            'There\'\ s something wrong!',
+                            'error'
+                            )
+                    }
+                }
+            })
+        }
         })
     })
 </script>

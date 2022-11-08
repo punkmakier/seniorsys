@@ -24,8 +24,12 @@
     else if(isset($_POST['updateAccountAdminC'])){
         updateAccountAdminCFunc();
     }
+    
     else if(isset($_POST['postDataAnnouncement'])){
         postDataAnnouncementFunc();
+    }
+    else if(isset($_POST['action']) && $_POST['action'] == "deletethisAnnouncement"){
+        deleteDataAnnouncement();
     }
 
     else if(isset($_POST['deleteSelectedMes'])){
@@ -105,13 +109,16 @@
         $conpass = $_POST['conpass'];
         $userID = $_SESSION['empID'];
         
-        if(empty($lname) || empty($fname) || empty($mname) || empty($empid) || empty($phoneNo) || empty($email) || empty($position) || empty($uname) || empty($pass) || empty($conpass) )
+        if(empty($lname) || empty($fname) || empty($mname) || empty($empid) || empty($phoneNo) || empty($email)
+         || empty($position) || empty($uname) || empty($pass) || empty($conpass) )
         {
             echo "Required";
         }
+        
         else if($pass != $conpass){
             echo "NotMatch";
         }
+
         else{
             $addAd = new AddAdmin($empid,$position,$lname,$fname,$mname,$email,$phoneNo,$uname,md5($pass));
             if($addAd->updateAdminAccount($userID)){
@@ -152,6 +159,20 @@
         
 
     }
+
+    function deleteDataAnnouncement(){
+            $id = $_POST['id_per_item'];
+            $admin = new AdminAccount;
+            
+            if($admin->deleteAnnouncement($id)){
+                echo "Success";
+            }else{
+                echo "Failed";
+            }
+    
+
+    }
+
 
     function deleteSelectedMesFunc(){
         $id = $_POST['selectedIDmessageTodelete'];

@@ -1,4 +1,8 @@
 <?php
+    require_once('../Model/init.php');
+
+    
+  
     require_once '../Model/AccountRequested.php';
     require_once '../Model/ShowMessage.php';
     require_once '../Model/AdminAccount.php';
@@ -9,6 +13,10 @@
     $showAdmin = new AdminAccount;
     $empID = $_SESSION['empID'];
     // $sessionID = $_SESSION['userUniqueID'];
+
+    if(!isset($_SESSION['empID']) && !isset($_SESSION['adminPos']) && !isset($_SESSION['adminFname'])){
+      header("Location: ../views/adminlogin.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +71,7 @@
         </div>
 
      
-        <div class="item"><a href="adminlogin.php"><i class="fa-solid fa-right-from-bracket" style="margin-left: 0;"></i>&nbsp;&nbsp;Logout</a></div>
+        <div class="item"><a href="logout.php"><i class="fa-solid fa-right-from-bracket" style="margin-left: 0;"></i>&nbsp;&nbsp;Logout</a></div>
       </div>
     </div>
 

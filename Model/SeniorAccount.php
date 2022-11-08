@@ -1,6 +1,6 @@
 <?php
+session_start();
     require_once("config.php"); //required to implement this for calling DB
-    session_start();
     class SeniorAccount extends config{
         
 

@@ -1,3 +1,16 @@
+
+
+
+
+<?php
+session_start();
+if(isset($_SESSION['userUniqueID'])){
+    header("Location: ../views/userdashboard.php");
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,13 +34,14 @@
 
     <div id="login">
         <a href="../index.php" style="position: absolute; top: 3%; left: 3%; ">Back to Homepage</a>
-            <div class="inner-login" style="height: 90%;">
+            <div class="inner-login" style="height: 95%;">
                 <div class="login-panel" id="loginPanel">
                     <div class="sidepanel">
                             <img src="../assets/img/login.png" alt="">
                             <h5 class="text-center mt-5">Lorem Impsum</h5>
                     </div>
                     <div class="form-panel-login ">
+                        <a href="adminlogin.php" style="float: right; padding: 10px;">Login as Admin</a>
                         <div style="width: 100%; position: relative; top: 15%; " class="d-flex justify-content-center">
                         <form action="" class="text-center" style="width: 70%;" id="seniorLogin">
                             <h4 class="mb-5 text-center">Login</h4>
@@ -54,7 +68,7 @@
                 </div>
                 <form action="" id="seniorReg">
                     <div class="form-panel-login p-4" >
-                        <h4 class="text-start mt-3 mb-4">Register</h4>
+                        <h4 class="text-start mt-1 mb-2">Register</h4>
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-2">

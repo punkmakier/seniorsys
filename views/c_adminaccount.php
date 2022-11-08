@@ -74,7 +74,7 @@
             </div>
         </div>
         <div id="updateBTNAdminaccount" style="width: 100%; text-align: end; display: none;" class="mt-3">
-            <button id="updateBtnAdminAccount" class="btn-custom-default" style="width: 150px; ">Update</button>
+            <input id="updateBtnAdminAccount" class="btn-custom-default" style="width: 150px; " value="Update">
         </div>
         </form>
     </div>
@@ -91,20 +91,37 @@
                 url: "../Controller/AdminFunction.php",
                 data: data,
                 success: function(response){
-                    Swal.fire({
-                    title: 'Success',
-                    text: "Your account is updated!",
-                    icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Okay'
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.reload();
+                    if(response == "Required"){
+                        Swal.fire(
+                            'Failed',
+                            'All fields are required',
+                            'error'
+                            )
                     }
-                    })
-                }
+                    else if(response == "NotMatch"){
+                        Swal.fire(
+                            'Failed',
+                            'Password and confirm password does not match',
+                            'error'
+                            )
+                    }
+                    else{
+                        Swal.fire({
+                            title: 'Success',
+                            text: "Your account is updated!",
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okay'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                            })
+                        }
+                    }
+                    
             })
         })
 

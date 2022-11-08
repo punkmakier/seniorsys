@@ -1,7 +1,13 @@
 <?php
+
+
     require_once '../Model/SeniorAccount.php';
     $snrAccountDetails = new SeniorAccount;
     $sessionID = $_SESSION['userUniqueID'];
+
+    if(!isset($_SESSION['userUniqueID'])){
+      header("Location: ../views/login.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +56,7 @@
             <a  class="sub-item" href="userinfo.php"><i class="fa-solid fa-gear"></i>&nbsp;&nbsp;User Account Info</a>
         </div>
         </div>
-        <div class="item"><a href="login.php"><i class="fa-solid fa-right-from-bracket" style="margin-left: 0;"></i>&nbsp;&nbsp;Logout</a></div>
+        <div class="item"><a href="logout.php"><i class="fa-solid fa-right-from-bracket" style="margin-left: 0;"></i>&nbsp;&nbsp;Logout</a></div>
       </div>
     </div>
 

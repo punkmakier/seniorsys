@@ -1,7 +1,10 @@
 <?php
 
+session_start();
 
-
+if(isset($_SESSION['empID']) && isset($_SESSION['adminPos']) && isset($_SESSION['adminFname'])){
+    header("Location: ../views/admindashboard.php");
+}
 ?>
 
 <!doctype html>
@@ -34,6 +37,7 @@
                             <h5 class="text-center mt-5">Lorem Impsum</h5>
                     </div>
                     <div class="form-panel-login ">
+                        <a href="login.php" style="position:absolute; top: 3%; left: 3%;">Login as Senior Citizen</a>
                         <div style="width: 100%; position: relative; top: 15%; " class="d-flex justify-content-center">
                         <form action="" class="text-center" style="width: 70%;" id="adminLoginForm">
                             <h4 class="mb-5 text-center">Admin Login</h4>

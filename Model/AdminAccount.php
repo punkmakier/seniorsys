@@ -1,6 +1,6 @@
 <?php
+session_start();
     require_once("config.php"); //required to implement this for calling DB
-    session_start();
     class AdminAccount extends config{
         
 
@@ -266,7 +266,7 @@
                     <td class='text-center'>$res[PostedByPosition]</td>
                     <td class='text-center'>$res[DateCreated]</td>
                     <td class='text-center'>
-                        <a class='btn btn-danger deleteAnnouncement'><i class='fa-solid fa-trash'></i></a>
+                        <a class='btn btn-danger deleteAnnouncement' id='$res[id]'><i class='fa-solid fa-trash'></i></a>
                     </td>
                 </tr>";
                 }
@@ -276,7 +276,6 @@
                 return false;
             }
         }
-
 
         public function deleteMessage($id){
             $con = $this->openConnection();
@@ -289,6 +288,19 @@
             }
         }
 
+        public function deleteAnnouncement($id){
+            $con = $this->openConnection();
+            $sqlQuery = "DELETE FROM `announcement` WHERE `id`='$id'";
+            $stmt = $con->prepare($sqlQuery);
+            if($stmt->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+
+        
         public function updateMessage($id){
             $con = $this->openConnection();
             $sqlQuery = "UPDATE `message` SET `Status`='Read' WHERE `id`='$id'";

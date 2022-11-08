@@ -14,8 +14,7 @@
             }catch(PDOException $e){
                 echo "There is some problem in the connection :". $e->getMessage();
             }
-
-
+            
             return $this->con;
         }
 
