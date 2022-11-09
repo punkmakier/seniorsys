@@ -35,7 +35,7 @@
     else if(isset($_POST['deleteSelectedMes'])){
         deleteSelectedMesFunc();
     }
-    else if(isset($_POST['updateSelectedMesFunc'])){
+    else if(isset($_POST['updateSelectedMes'])){
         updateSelectedMesFunc();
     }
 

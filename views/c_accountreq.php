@@ -24,3 +24,38 @@
     </div>
 </div>
 
+
+<script>
+    $(".btnRequestApprove").click(function(){
+        data_item = $(this).attr("id");
+        $.ajax({
+            type: "POST",
+            url: "../Controller/SeniorCitizenFunction.php",
+            data: {request_selected:data_item, action: "trigger_account_request"},
+            success: function(response){
+                if(response == "Success"){
+                    Swal.fire({
+                            title: 'Success',
+                            text: "Requested account has been approved!",
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okay'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                            })
+                            
+                }else{
+                    Swal.fire(
+                            'Failed',
+                            'There\'\ s something wrong!',
+                            'error'
+                            )
+                }
+            }
+        })
+    })
+</script>

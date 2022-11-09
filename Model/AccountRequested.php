@@ -11,17 +11,19 @@
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 while($res = $stmt->fetch()){
-                    echo "<tr>
-                    <td class='text-center'>".$res['FirstName']." ".substr($res['MiddleName'],0,1).". ".$res['LastName']."</td>
-                    <td class='text-center'>$res[Address]</td>
-                    <td class='text-center'>$res[Age]</td>
-                    <td class='text-center'>$res[Gender]</td>
-                    <td class='text-center'>$res[Status]</td>
-                    <td class='text-center'>
-                        <a href='$res[UserUniqueID]' class='btn btn-primary'><i class='fa-solid fa-eye'></i></a> 
-                        <a href='$res[UserUniqueID]' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
-                    </td>
-                </tr>";
+                    echo "
+                        <tr>
+                            <td class='text-center'>$res[LastName]</td>
+                            <td class='text-center'>$res[Address]</td>
+                            <td class='text-center'>$res[Age]</td>
+                            <td class='text-center'>$res[Gender]</td>
+                            <td class='text-center'>$res[CellphoneNo]</td>
+                            <td class='text-center'>
+                                <a class='btn btn-primary btnRequestApprove' title='Approve' id='$res[UserUniqueID]'><i class='fa-solid fa-thumbs-up'></i></a>
+                                <a class='btn btn-danger btnRequestDisapprove'title='Dispprove' id='$res[UserUniqueID]'><i class='fa-solid fa-thumbs-down'></i></a>
+                            </td>
+                        </tr>
+                    ";
                 }
             }
         }

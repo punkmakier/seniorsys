@@ -34,6 +34,16 @@
             }
         }
 
+        public function countSeniorRequestAccount(){
+            $con = $this->openConnection();
+            $sqlQuery = "SELECT COUNT(`UserUniqueID`) AS `userCount` FROM `srpersonalinfo` WHERE `Status`='Pending'";
+            $stmt = $con->prepare($sqlQuery);
+            $stmt->execute();
+            while($res = $stmt->fetch()){
+                echo $res['userCount'];
+            }
+        }
+
 
     }
 

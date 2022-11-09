@@ -12,7 +12,7 @@
             if($stmt->rowCount() > 0){
                 while($res = $stmt->fetch()){
                     echo "<tr>
-                    <td class='text-center d-none'>$res[id]</td>
+                    <td class='text-center' style='display: none;'>$res[id]</td>
                     <td class='text-center'>$res[MessageBy]</td>
                     <td class='text-center'>$res[Subject]</td>
                     <td class='text-center'>$res[Description]</td>

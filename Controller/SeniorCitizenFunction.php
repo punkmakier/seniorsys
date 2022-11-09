@@ -9,6 +9,7 @@
     require_once '../Model/UserInfo.php';
     require_once '../Model/Message.php';
 
+
     
     // For Calling Function
     if(isset($_POST['SeniorRegistration'])){
@@ -39,11 +40,20 @@
     else if(isset($_POST['messageToAdmin'])){
         messageToAdmin();
     }
-    else if(isset($_POST['trigger'])){
-        $trig = $_POST['trigger'];
-        $user= $_SESSION['userUniqueID'];
+    else if(isset($_POST['action']) && isset($_POST['action']) == "trigger_account_request"){
+        $trig = $_POST['request_selected'];
         $updateStat = new SeniorAccount();
-        $updateStat->updateStatusAccount($trig,$user);
+
+        if($updateStat->updateStatusAccount($trig)){
+            echo "Success";
+            
+        }else{
+            echo "Error";
+        }
+    }
+
+    else if(isset($_POST['action']) && isset($_POST['action']) == "forgotPasswordAction"){
+        forgotPassFunc();
     }
     
     
@@ -97,7 +107,7 @@
         }
 
         else{
-            $addSr = new SeniorRegistration($userUniqueId,$lname,$fname,$mname,$birthDate,$address,$email,$cpNo,$birth_new_name_image,$brgy_new_name_image,$userName,md5($pass));
+            $addSr = new SeniorRegistration($userUniqueId,$lname,$fname,$mname,$birthDate,$address,$email,$cpNo,$birth_new_name_image,$brgy_new_name_image,$userName,$pass);
             if($addSr->SeniorRegistration()){
 
                 move_uploaded_file($birth_tmp_name, $birthCert_img_upload_path);
@@ -117,7 +127,7 @@
         $pass = $_POST['password'];
 
         $snr = new SeniorAccount();
-        if($snr->SeniorLoginAccount($uname,md5($pass))){
+        if($snr->SeniorLoginAccount($uname,$pass)){
             echo "Success";
         }
         else{
@@ -284,5 +294,19 @@
             echo "Failed";
         }
     }
+
+    function forgotPassFunc(){
+        $email = $_POST['forgot_data'];
+
+        $accnt = new SeniorAccount;
+        
+        $accnt->forgotAcountPassword($email);
+            
+
+
+    }
+
+
+    
    
 ?>

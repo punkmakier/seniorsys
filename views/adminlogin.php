@@ -43,7 +43,6 @@ if(isset($_SESSION['empID']) && isset($_SESSION['adminPos']) && isset($_SESSION[
                             <h4 class="mb-5 text-center">Admin Login</h4>
                             <input type="text" name="username" placeholder="Username" class="input-fields-custom ">
                             <input type="password" name="password" placeholder="Password" class="input-fields-custom" style=" margin-top: 20px;"><br>
-                            <a href="" class="forgotPass text-start">Forgot Password</a>
                             <input id="submitAdminLogin" class="contact-submit mt-5" value="Login">
 
                             <p class="mt-5">Don't have an account yet? <a style="color: #1c3456; cursor: pointer; text-decoration: underline;" id="registerBTN">Register</a></p>

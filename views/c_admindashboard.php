@@ -7,7 +7,7 @@
 
 
 <div class="container-fluid p-3">
-<h3 class="mb-5 mt-4">Dashboard</h3>
+<h3 class="mb-3 mt-4">Dashboard</h3>
 
     <div class="count-cards">
         <i class="fa-solid fa-users"></i>
@@ -23,7 +23,7 @@
     </div>
     <div class="count-cards">
         <i class="fa-solid fa-users"></i>
-        <label>Pending Account Req<br><b>11</b></label>
+        <label>Pending Account Req<br><b><?php $count->countSeniorRequestAccount();?></b></label>
     </div>
     <div class="count-cards">
         <i class="fa-solid fa-users"></i>

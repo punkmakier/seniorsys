@@ -13,22 +13,24 @@
        <table class="table table-striped" id="myTable">
             <thead class="bg-dark text-white">
                 <tr>
+                <td class="text-center d-none">ID</td>
+
                     <td class="text-center">Complete Name</td>
                     <td class="text-center">Subject</td>
                     <td class="text-center">Message</td>
                     <td class="text-center">Status</td>
-                    <td class="text-center">Message</td>
+                    <td class="text-center">Date Created</td>
                     <td class="text-center">Action</td>
                 </tr>
             </thead>
 
             <tbody>
                 <?php $showMessage->showAllMessage(); ?>
-  
             </tbody>
             
        </table>
    
+       
     </div>
 </div>
 

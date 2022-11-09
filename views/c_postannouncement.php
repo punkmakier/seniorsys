@@ -126,7 +126,7 @@
                         title: 'Success',
                         text: "Announcement deleted successfully!",
                         icon: 'success',
-                        showCancelButton: true,
+                        showCancelButton: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Okay'

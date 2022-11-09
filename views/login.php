@@ -41,13 +41,24 @@ if(isset($_SESSION['userUniqueID'])){
                             <h5 class="text-center mt-5">Lorem Impsum</h5>
                     </div>
                     <div class="form-panel-login ">
+                        
                         <a href="adminlogin.php" style="float: right; padding: 10px;">Login as Admin</a>
                         <div style="width: 100%; position: relative; top: 15%; " class="d-flex justify-content-center">
+                            <div id="forgotPasword" style="width: 80%; display:none;">
+                            <form action="" id="forgotPasswordForm">
+                                <h4 class="text-center">Forgot Password</h4>
+                                <input id="enterEmailAddress" type="email" name="enterEmailAddress" placeholder="Enter your email" class="input-fields-custom mt-4">
+                                <input  type="submit" class="contact-submit mt-4 mb-4" value="Submit">
+                                <h5 class="mt-2 mb-5 text-start" style="display: none;" id="passwordNotFound">Password not found! Your email is not registered on system.</h5>
+                                <h5 class="mt-2 mb-5 text-start" style="display: none;" id="passwordFound">Your password is: <b class="text-success" id="showPassword" >123</b></h5>
+                                <a href="login.php" style="margin-top: 60px;">Click here to login</a>
+                            </form>
+                            </div>
                         <form action="" class="text-center" style="width: 70%;" id="seniorLogin">
-                            <h4 class="mb-5 text-center">Login</h4>
+                            <!-- <h4 class="mb-5 text-center">Login</h4> -->
                             <input type="text" name="username" placeholder="Username" class="input-fields-custom ">
                             <input type="password" name="password" placeholder="Password" class="input-fields-custom" style=" margin-top: 20px;"><br>
-                            <a href="" class="forgotPass text-start">Forgot Password</a>
+                            <a id="forgotPasswordBtn" class="forgotPass text-start" style="cursor: pointer;">Forgot Password</a>
                             <input  type="submit" class="contact-submit mt-5" value="Login">
 
                             <p class="mt-5">Don't have an account yet? <a style="color: #1c3456; cursor: pointer; text-decoration: underline;" id="registerBTN">Register</a></p>
@@ -168,6 +179,43 @@ if(isset($_SESSION['userUniqueID'])){
 
     <script>
         $(document).ready(function(){
+
+            $("#forgotPasswordBtn").click(function(){
+                $("#forgotPasword").css("display","block");
+                $("#seniorLogin").css("display","none");
+                
+            })
+
+            $("#forgotPasswordForm").submit(function(e){
+                e.preventDefault();
+                dataforgotPass = $("#enterEmailAddress").val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "../Controller/SeniorCitizenFunction.php",
+                    data: {forgot_data:dataforgotPass, action: "forgotPasswordAction"},
+                    success: function(response){
+                        if(response == "NoAccount"){
+                            
+                            $("#passwordNotFound").css("display","block");
+                            $("#passwordFound").css("display", "none");
+
+                        }else{
+                            $("#passwordNotFound").css("display","none");
+                            $("#passwordFound").css("display", "block");
+                            $("#showPassword").text(response);
+                            
+                        }
+                    }
+                })
+            })
+
+
+
+
+
+
+
             $("#registerBTN").on('click', function(){
                 $("#loginPanel").fadeOut();
                 $("#RegisterPanel").fadeIn();

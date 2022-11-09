@@ -1,18 +1,21 @@
 <?php
 session_start();
     require_once("config.php"); //required to implement this for calling DB
+    require '../vendors/phpmailer/PHPMailerAutoload.php';
+
     class SeniorAccount extends config{
         
 
         // LOGIN HERE
         public function SeniorLoginAccount($username,$password){
             $con = $this->openConnection();
-            $sqlQuery = "SELECT `UserUniqueID` FROM `srpersonalinfo` WHERE `Username` = '$username' AND `Password`='$password'";
+            $sqlQuery = "SELECT `UserUniqueID`,`Email` FROM `srpersonalinfo` WHERE `Username` = '$username' AND `Password`='$password'";
             $stmt = $con->prepare($sqlQuery);
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 while($res = $stmt->fetch()){
                     $_SESSION['userUniqueID'] = $res['UserUniqueID'];
+                    $_SESSION['emailID'] = $res['Email'];
                 }
                 return true;
             }
@@ -761,11 +764,54 @@ session_start();
 
 
 
-        public function updateStatusAccount($status,$uniqueID){
+        public function updateStatusAccount($uniqueID){
             $con = $this->openConnection();
-            $sqlQuery = "UPDATE `srpersonalinfo` SET `Status`='$status' WHERE `UserUniqueID`='$uniqueID'";
+            $sqlQuery = "UPDATE `srpersonalinfo` SET `Status`='Verified' WHERE `UserUniqueID`='$uniqueID'";
             $stmt = $con->prepare($sqlQuery);
-            $stmt->execute();
+            if($stmt->execute()){
+                $sqlQuery2 = "SELECT `Email` FROM `srpersonalinfo` WHERE `UserUniqueID`='$uniqueID'";
+                $stmt2 = $con->prepare($sqlQuery2);
+                if($stmt2->execute()){
+                    while($res = $stmt2->fetch()){
+                        $mail = new PHPMailer;
+    
+                    //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+    
+                    $mail->isSMTP();                                      // Set mailer to use SMTP
+                    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                    $mail->Username = 'klintoiyas@gmail.com';                 // SMTP username
+                    $mail->Password = 'nnkvpptsjbfxflmj';                           // SMTP password
+                    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                    $mail->Port = 587;                                    // TCP port to connect to
+                    $emailToSend = $res['Email'];
+                    $mail->setFrom('klintoiyas@gmail.com', 'Admin');
+                    $mail->addAddress($emailToSend, 'Senior Citizen User');     // Add a recipient
+    
+                    $mail->isHTML(true);                                  // Set email format to HTML
+    
+                    $mail->Subject = 'Congratulations!';
+                    $mail->Body    = '<div class="alert alert-primary" role="alert">
+                    Your account is verified! You can now use our services.
+
+                    <li>Request Pension</li>
+                    <li>Request Senior ID</li>
+                    <li>Request Burial Assistance</li>
+
+                    </div>';
+    
+                    if(!$mail->send()) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+               
+                }
+                
+            }else{
+                return false;
+            }
 
         }
 
@@ -832,6 +878,22 @@ session_start();
                 while($res = $stmt->fetch()){
                     echo $res['DateCreated'];
                 }
+            }
+        }
+
+        public function forgotAcountPassword($email){
+            $con = $this->openConnection();
+            $sqlQuery = "SELECT `Password` FROM `srpersonalinfo` WHERE `Email`='$email'";
+            $stmt = $con->prepare($sqlQuery);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                while($res = $stmt->fetch()){
+                    echo $res['Password'];
+                }
+                
+            }
+            else{
+                echo "NoAccount";
             }
         }
 
