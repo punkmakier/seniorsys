@@ -1,7 +1,7 @@
 
 <?php
-    require_once 'Model/SeniorAccount.php';
-    $snrAccountDetails = new SeniorAccount;
+    require_once 'Model/HomePageAnnounce.php';
+    $snrAccountDetails = new HomePageAnnounce;
 
 ?>
 

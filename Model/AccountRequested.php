@@ -20,7 +20,7 @@
                             <td class='text-center'>$res[CellphoneNo]</td>
                             <td class='text-center'>
                                 <a class='btn btn-primary btnRequestApprove' title='Approve' id='$res[UserUniqueID]'><i class='fa-solid fa-thumbs-up'></i></a>
-                                <a class='btn btn-danger btnRequestDisapprove'title='Dispprove' id='$res[UserUniqueID]'><i class='fa-solid fa-thumbs-down'></i></a>
+                                <a class='btn btn-danger btnRequestDisapprove' title='Dispprove' id='$res[UserUniqueID]'><i class='fa-solid fa-thumbs-down'></i></a>
                             </td>
                         </tr>
                     ";
@@ -334,9 +334,9 @@
 
    
 
-        public function showPartnerAgeLUPEducAttainOccuMonthlyInc($id){
+        public function showPartnerAgeLUPEducAttainOccuMonthly($id){
             $con = $this->openConnection();
-            $sqlQuery = "SELECT `Age`,`EducAttainment`,`Occupation`,`DateUpdated` FROM `srparterinfo` WHERE `UserUniqueID`='$id'";
+            $sqlQuery = "SELECT `Age`,`EducAttainment`,`Occupation`,`DateUpdated`,`MonthlyIncome` FROM `srparterinfo` WHERE `UserUniqueID`='$id'";
             $stmt = $con->prepare($sqlQuery);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -346,6 +346,8 @@
                     <div class='mb-2'>
                         <label for='exampleInputEmail1' class='form-label'><b>Age</b></label>
                         <input type='text' class='form-control' value='$res[Age]' readonly>
+                        <label for='exampleInputEmail1' class='form-label'><b>Monthly Income</b></label>
+                        <input type='text' class='form-control' value='$res[MonthlyIncome]' readonly>
                     </div>
                     </div>
                     <div class='col'>
@@ -363,7 +365,7 @@
                     <div class='col'>
                     <div class='mb-2'>
                         <label for='exampleInputEmail1' class='form-label'><b>Last Update</b></label>
-                        <input type='date' class='form-control' value='$res[DateUpdated]' readonly>
+                        <input type='text' class='form-control' value='$res[DateUpdated]' readonly>
                     </div>
                     </div>
                     ";

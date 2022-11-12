@@ -26,7 +26,7 @@
 
         public function countUnreadMessage(){
             $con = $this->openConnection();
-            $sqlQuery = "SELECT COUNT(`id`) AS `userCount` FROM message";
+            $sqlQuery = "SELECT COUNT(`id`) AS `userCount` FROM message WHERE `Status`='Unread'";
             $stmt = $con->prepare($sqlQuery);
             $stmt->execute();
             while($res = $stmt->fetch()){

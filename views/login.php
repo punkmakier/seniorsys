@@ -50,10 +50,11 @@ if(isset($_SESSION['userUniqueID'])){
                                 <input id="enterEmailAddress" type="email" name="enterEmailAddress" placeholder="Enter your email" class="input-fields-custom mt-4">
                                 <input  type="submit" class="contact-submit mt-4 mb-4" value="Submit">
                                 <h5 class="mt-2 mb-5 text-start" style="display: none;" id="passwordNotFound">Password not found! Your email is not registered on system.</h5>
-                                <h5 class="mt-2 mb-5 text-start" style="display: none;" id="passwordFound">Your password is: <b class="text-success" id="showPassword" >123</b></h5>
+                                <h5 class="mt-2 mb-5 text-start" style="display: none;" id="passwordFound">Your password is: <b class="text-success" id="showPassword" >123</b><small><br>Note: Your password is HASH type for security purpose, Please use this third party link to decrypt your password hash.</small><br><a href="https://www.md5online.org/md5-decrypt.html" target="_blank">MD5 Decrypt Password</a></h5>
                                 <a href="login.php" style="margin-top: 60px;">Click here to login</a>
                             </form>
                             </div>
+
                         <form action="" class="text-center" style="width: 70%;" id="seniorLogin">
                             <!-- <h4 class="mb-5 text-center">Login</h4> -->
                             <input type="text" name="username" placeholder="Username" class="input-fields-custom ">
@@ -193,7 +194,7 @@ if(isset($_SESSION['userUniqueID'])){
                 $.ajax({
                     type: "POST",
                     url: "../Controller/SeniorCitizenFunction.php",
-                    data: {forgot_data:dataforgotPass, action: "forgotPasswordAction"},
+                    data: {forgot_data:dataforgotPass, forgotPasswordAction: "forgotPasswordAction"},
                     success: function(response){
                         if(response == "NoAccount"){
                             

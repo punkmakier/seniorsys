@@ -775,7 +775,7 @@ session_start();
                     while($res = $stmt2->fetch()){
                         $mail = new PHPMailer;
     
-                    //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+                    // $mail->SMTPDebug = 3;                               // Enable verbose debug output
     
                     $mail->isSMTP();                                      // Set mailer to use SMTP
                     $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
@@ -792,7 +792,7 @@ session_start();
     
                     $mail->Subject = 'Congratulations!';
                     $mail->Body    = '<div class="alert alert-primary" role="alert">
-                    Your account is verified! You can now use our services.
+                    Your account is <b>approved!</b> You can now use our services.
 
                     <li>Request Pension</li>
                     <li>Request Senior ID</li>
@@ -814,6 +814,75 @@ session_start();
             }
 
         }
+
+        public function updateStatusAccountDisapproved($uniqueID){
+
+            $con = $this->openConnection();
+            $sqlQuery = "SELECT * FROM `srpersonalinfo` WHERE `UserUniqueID`='$uniqueID'";
+            $stmt = $con->prepare($sqlQuery);
+            if($stmt->execute()){
+                while($res = $stmt->fetch()){
+                    $mail = new PHPMailer;
+    
+                    // $mail->SMTPDebug = 3;                               // Enable verbose debug output
+    
+                    $mail->isSMTP();                                      // Set mailer to use SMTP
+                    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+                    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                    $mail->Username = 'klintoiyas@gmail.com';                 // SMTP username
+                    $mail->Password = 'nnkvpptsjbfxflmj';                           // SMTP password
+                    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                    $mail->Port = 587;                                    // TCP port to connect to
+                    $emailToSend = $res['Email'];
+                    $mail->setFrom('klintoiyas@gmail.com', 'Admin');
+                    $mail->addAddress($emailToSend, 'Senior Citizen User');     // Add a recipient
+    
+                    $mail->isHTML(true);                                  // Set email format to HTML
+    
+                    $mail->Subject = 'Disapproved!';
+                    $mail->Body    = '<div class="alert alert-primary" role="alert">
+                    Sorry, your account is <b>disapproved</b> by some reason.
+    
+                    It looks like you are not qualified to our services.
+    
+                    </div>';
+    
+                    if(!$mail->send()) {
+                        return false;
+                    } else {
+                        $sqlQuery5 = "DELETE FROM `srpersonalinfo` WHERE `UserUniqueID`='$uniqueID'";
+                        $stmt5 = $con->prepare($sqlQuery5);
+                        $stmt5->execute();
+  
+                        $sqlQuery2 = "DELETE FROM `srparterinfo` WHERE `UserUniqueID`='$uniqueID'";
+                        $stmt2 = $con->prepare($sqlQuery2);
+                        $stmt2->execute();
+
+                        $sqlQuery3 = "DELETE FROM `srhealthissue` WHERE `UserUniqueID`='$uniqueID'";
+                        $stmt3 = $con->prepare($sqlQuery3);
+                        $stmt3->execute();
+
+                        $sqlQuery4 = "DELETE FROM `sremercontact` WHERE `UserUniqueID`='$uniqueID'";
+                        $stmt4 = $con->prepare($sqlQuery4);
+                        $stmt4->execute();
+
+
+                        return true;
+                    }
+                }
+                
+      
+
+            }
+            else{
+                return false;
+            }
+            
+
+        }
+
+
+
 
 
         // Show Title Announcement
@@ -894,6 +963,18 @@ session_start();
             }
             else{
                 echo "NoAccount";
+            }
+        }
+
+
+        public function updateStatusAccountChangingStat($stat,$id){
+            $con = $this->openConnection();
+            $sqlQuery = "UPDATE `srpersonalinfo` SET `STATUS`='$stat' WHERE `UserUniqueID`='$id'";
+            $stmt = $con->prepare($sqlQuery);
+            if($stmt->execute()){
+                return true;
+            }else{
+                return false;
             }
         }
 

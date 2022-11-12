@@ -40,6 +40,14 @@
     else if(isset($_POST['messageToAdmin'])){
         messageToAdmin();
     }
+    else if(isset($_POST['trigger'])){
+        $stat = $_POST['trigger'];
+        $user = $_SESSION['userUniqueID'];
+        $updateStat = new SeniorAccount();
+        $updateStat->updateStatusAccountChangingStat($stat,$user);
+    }
+
+
     else if(isset($_POST['action']) && isset($_POST['action']) == "trigger_account_request"){
         $trig = $_POST['request_selected'];
         $updateStat = new SeniorAccount();
@@ -52,7 +60,21 @@
         }
     }
 
-    else if(isset($_POST['action']) && isset($_POST['action']) == "forgotPasswordAction"){
+    else if(isset($_POST['triggerDisapprove']) && isset($_POST['triggerDisapprove']) == "trigger_account_request_disapprove"){
+        $trig = $_POST['request_selected_disapproved'];
+        $updateStat = new SeniorAccount();
+
+        if($updateStat->updateStatusAccountDisapproved($trig)){
+            echo "Success";
+            
+        }else{
+            echo "Error";
+        }
+    }
+
+
+
+    else if(isset($_POST['forgotPasswordAction']) && isset($_POST['forgotPasswordAction']) == "forgotPasswordAction"){
         forgotPassFunc();
     }
     
@@ -107,7 +129,7 @@
         }
 
         else{
-            $addSr = new SeniorRegistration($userUniqueId,$lname,$fname,$mname,$birthDate,$address,$email,$cpNo,$birth_new_name_image,$brgy_new_name_image,$userName,$pass);
+            $addSr = new SeniorRegistration($userUniqueId,$lname,$fname,$mname,$birthDate,$address,$email,$cpNo,$birth_new_name_image,$brgy_new_name_image,$userName,md5($pass));
             if($addSr->SeniorRegistration()){
 
                 move_uploaded_file($birth_tmp_name, $birthCert_img_upload_path);
@@ -127,7 +149,7 @@
         $pass = $_POST['password'];
 
         $snr = new SeniorAccount();
-        if($snr->SeniorLoginAccount($uname,$pass)){
+        if($snr->SeniorLoginAccount($uname,md5($pass))){
             echo "Success";
         }
         else{

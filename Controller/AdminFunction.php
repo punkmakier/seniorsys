@@ -263,7 +263,7 @@
         echo "</div>  ";
 
         echo "<div class='row'>";
-        $acReq->showPartnerAgeLUPEducAttainOccuMonthlyInc($uid);
+        $acReq->showPartnerAgeLUPEducAttainOccuMonthly($uid);
         echo "</div>
 
         <div class='modal-footer'>

@@ -63,12 +63,13 @@
                 $("#trigger").val("Pending");
 
                 var data =  $("#triggerForm").serialize();
+
                 $.ajax({
                     type: "POST",
                     url: "../Controller/SeniorCitizenFunction.php",
                     data: data,
-                    success: function(reponse){
-      
+                    success: function(response){
+
                     }
                 })
             }
